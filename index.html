@@ -1,0 +1,327 @@
+<!-- welcome to my spagetti code lol -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishmaker - Title Screen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="title-screen">
+        <!-- background gradient -->
+        <div class="background"></div>
+        
+        <!-- stars container -->
+        <div class="stars-container">
+            <div class="star star-1"></div>
+            <div class="star star-2"></div>
+            <div class="star star-3"></div>
+            <div class="star star-4"></div>
+            <div class="star star-5"></div>
+            <div class="star star-6"></div>
+            <div class="star star-7"></div>
+            <div class="star star-8"></div>
+            <div class="star star-9"></div>
+            <div class="star star-10"></div>
+            <div class="star star-11"></div>
+        </div>
+        
+        <!-- jirachi special gift logo -->
+        <div class="logo">
+            <img src="images/logo.png" alt="Jirachi Special Gift Logo">
+        </div>
+        
+        <!-- jirachi -->
+        <div class="jirachi">
+            <img src="images/jirachi.png" alt="Jirachi">
+        </div>
+        
+        <!-- continue button -->
+        <div class="continue-button">
+            <div class="button-background"></div>
+            <div class="button-text">Press to continue</div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('click', function() {
+            // fade out all elements except background
+            const titleScreen = document.querySelector('.title-screen');
+            const fadeTargets = titleScreen.querySelectorAll('.stars-container, .logo, .jirachi, .continue-button');
+            fadeTargets.forEach(el => el.classList.add('fade-out'));
+            // nav logic
+            setTimeout(() => {
+                window.location.href = 'oak-intro-1.html';
+            }, 900);
+        });
+    </script>
+</body>
+</html> 
+
+<style>
+    .title-screen {
+        width: 800px;
+        height: 480px;
+        position: relative;
+        margin: 0 auto;
+        overflow: hidden;
+        opacity: 0;
+    }
+    
+    .title-screen.fade-in {
+        transition: opacity 1s ease;
+        opacity: 1;
+    }
+
+    /* stars container */
+    .stars-container {
+        position: absolute;
+        top: 15px;
+        left: 29px;
+        width: 751.73px;
+        height: 439.67px;
+        z-index: 20;
+    }
+
+    /* star base styles */
+    .star {
+        position: absolute;
+        background: linear-gradient(180deg, #FDED99 0%, #FCF4DB 49.52%, #FDED99 100%);
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    /* star positions */
+    .star-1 {
+        width: 59.73px;
+        height: 59.73px;
+        top: 202px;
+        left: 692px;
+    }
+
+    .star-2 {
+        width: 58.14px;
+        height: 58.14px;
+        top: 21px;
+        left: 53px;
+    }
+
+    .star-3 {
+        width: 58.14px;
+        height: 58.14px;
+        top: 114px;
+        left: 635px;
+    }
+
+    .star-4 {
+        width: 69.15px;
+        height: 69.15px;
+        top: 0px;
+        left: 653px;
+    }
+
+    .star-5 {
+        width: 60.98px;
+        height: 60.98px;
+        top: 369px;
+        left: 586px;
+    }
+
+    .star-6 {
+        width: 58.18px;
+        height: 58.18px;
+        top: 381.49px;
+        left: 81.49px;
+    }
+
+    .star-7 {
+        width: 51.15px;
+        height: 51.15px;
+        top: 129px;
+        left: 5px;
+    }
+
+    .star-8 {
+        width: 57.06px;
+        height: 57.06px;
+        top: 337px;
+        left: 693px;
+    }
+
+    .star-9 {
+        width: 51.15px;
+        height: 51.15px;
+        top: 264px;
+        left: 613px;
+    }
+
+    .star-10 {
+        width: 51.15px;
+        height: 51.15px;
+        top: 289px;
+        left: 0px;
+    }
+
+    .star-11 {
+        width: 60.3px;
+        height: 60.3px;
+        top: 212px;
+        left: 51px;
+    }
+
+    /* jirachi special gift logo */
+    .logo {
+        position: absolute;
+        top: 50px;
+        left: 181px;
+        width: 440px;
+        height: 112px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* jirachi */
+    .jirachi {
+        position: absolute;
+        top: 86px;
+        left: 239px;
+        width: 323px;
+        height: 323px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+    }
+
+    .jirachi img {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* shader effect container for Jirachi */
+    .jirachi::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        width: calc(100% + 40px);
+        height: calc(100% + 40px);
+        background: 
+            radial-gradient(circle at 30% 30%, rgba(178, 244, 255, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 70% 70%, rgba(178, 244, 255, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(178, 244, 255, 0.25) 0%, transparent 70%);
+        filter: blur(12px);
+        animation: shaderPulse 2s ease-in-out infinite;
+        z-index: -2;
+    }
+
+    @keyframes shaderPulse {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(0.95);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1.05);
+        }
+    }
+
+    .jirachi img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: drop-shadow(0px 0px 3.67px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 7.34px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 25.70px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 51.41px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 88.13px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 154.22px rgba(178, 244, 255, 1));
+        animation: jirachiGlow 4s ease-in-out infinite, jirachiPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes jirachiGlow {
+        0%, 100% {
+            filter: drop-shadow(0px 0px 3.67px rgba(178, 244, 255, 0.4))
+                    drop-shadow(0px 0px 7.34px rgba(178, 244, 255, 0.3))
+                    drop-shadow(0px 0px 25.70px rgba(178, 244, 255, 0.25))
+                    drop-shadow(0px 0px 51.41px rgba(178, 244, 255, 0.2))
+                    drop-shadow(0px 0px 88.13px rgba(178, 244, 255, 0.15))
+                    drop-shadow(0px 0px 154.22px rgba(178, 244, 255, 0.1));
+        }
+        50% {
+            filter: drop-shadow(0px 0px 8px rgba(178, 244, 255, 0.6))
+                    drop-shadow(0px 0px 20px rgba(178, 244, 255, 0.4))
+                    drop-shadow(0px 0px 50px rgba(178, 244, 255, 0.3))
+                    drop-shadow(0px 0px 100px rgba(178, 244, 255, 0.25))
+                    drop-shadow(0px 0px 180px rgba(178, 244, 255, 0.2))
+                    drop-shadow(0px 0px 300px rgba(178, 244, 255, 0.15));
+        }
+    }
+
+    @keyframes jirachiPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.075);
+        }
+    }
+
+    .continue-button {
+        position: absolute;
+        top: 409px;
+        left: 260px;
+        width: 280.36px;
+        height: 46px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+    }
+
+    .button-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            rgba(89, 162, 163, 0) 0%, 
+            rgba(89, 162, 163, 1) 25.48%, 
+            rgba(89, 162, 163, 1) 74.52%, 
+            rgba(89, 162, 163, 0) 100%);
+    }
+
+    .button-text {
+        position: absolute;
+        top: 7.77px;
+        left: 15.45px;
+        width: 251.66px;
+        height: 32.26px;
+        color: #FFFFFF;
+        font-family: 'Noto Sans JP', sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.2em;
+        letter-spacing: 1.05px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+</style>

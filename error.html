@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=800, initial-scale=1.0">
+  <title>End 4</title>
+  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans JP', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .main-wrapper {
+      width: 800px;
+      height: 480px;
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .background {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    .dialog-box {
+      position: relative;
+      width: 635px;
+      height: 77px;
+      background: #fff;
+      border-radius: 100px;
+      box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      margin-bottom: 40px;
+    }
+    .dialog-text {
+      font-family: 'Noto Sans JP', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 19px;
+      line-height: 1.2em;
+      letter-spacing: 0.07em;
+      color: #626262;
+      text-align: center;
+      width: 570px;
+      margin: 0;
+      z-index: 3;
+      background: transparent;
+      min-height: 1.2em;
+    }
+    .text-indicator {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      width: 18px;
+      height: auto;
+      opacity: 0;
+      animation: bounce 0.5s infinite alternate;
+      transition: opacity 0.8s ease-out;
+      pointer-events: none;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-5px); }
+    }
+
+    /* jirachi container */
+    .jirachi-container {
+      position: absolute;
+      opacity: 1;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      left: 0; top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+    .jirachi-img {
+      width: 300px;
+      height: auto;
+      padding-bottom: 10px;
+      opacity: 1;
+    }
+
+    /* shader effect container for Jirachi */
+    .jirachi-img::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        width: calc(100% + 40px);
+        height: calc(100% + 40px);
+        background: 
+            radial-gradient(circle at 30% 30%, rgba(178, 244, 255, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 70% 70%, rgba(178, 244, 255, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(178, 244, 255, 0.25) 0%, transparent 70%);
+        filter: blur(12px);
+        animation: shaderPulse 2s ease-in-out infinite;
+        z-index: -2;
+    }
+
+    @keyframes shaderPulse {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(0.95);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1.05);
+        }
+    }
+
+    .jirachi-img {
+        filter: drop-shadow(0px 0px 3.67px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 7.34px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 25.70px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 51.41px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 88.13px rgba(178, 244, 255, 1))
+                drop-shadow(0px 0px 154.22px rgba(178, 244, 255, 1));
+        animation: jirachiGlow 4s ease-in-out infinite, jirachiPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes jirachiGlow {
+        0%, 100% {
+            filter: drop-shadow(0px 0px 3.67px rgba(178, 244, 255, 0.4))
+                    drop-shadow(0px 0px 7.34px rgba(178, 244, 255, 0.3))
+                    drop-shadow(0px 0px 25.70px rgba(178, 244, 255, 0.25))
+                    drop-shadow(0px 0px 51.41px rgba(178, 244, 255, 0.2))
+                    drop-shadow(0px 0px 88.13px rgba(178, 244, 255, 0.15))
+                    drop-shadow(0px 0px 154.22px rgba(178, 244, 255, 0.1));
+        }
+        50% {
+            filter: drop-shadow(0px 0px 8px rgba(178, 244, 255, 0.6))
+                    drop-shadow(0px 0px 20px rgba(178, 244, 255, 0.4))
+                    drop-shadow(0px 0px 50px rgba(178, 244, 255, 0.3))
+                    drop-shadow(0px 0px 100px rgba(178, 244, 255, 0.25))
+                    drop-shadow(0px 0px 180px rgba(178, 244, 255, 0.2))
+                    drop-shadow(0px 0px 300px rgba(178, 244, 255, 0.15));
+        }
+    }
+
+    @keyframes jirachiPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.075);
+        }
+    }
+
+    .star2-group {
+      position: absolute;
+      width: 742.15px;
+      height: 292.15px;
+      left: 11px;
+      top: 12px;
+    }
+
+    /* star styling */
+    .star2 {
+      position: absolute;
+      width: 49px;
+      height: 49px;
+    }
+
+    /* pos and rotation */
+    .star2-1  { left: 683.76px; top: 155.76px; transform: rotate(14.54deg);  }
+    .star2-2  { left: 31px;     top: 29px;     transform: rotate(-12.04deg); }
+    .star2-3  { left: 687.5px;  top: 27.5px;   transform: rotate(-41.33deg); }
+    .star2-4  { left: 137.58px; top: 41.58px;  transform: rotate(16.64deg);  }
+    .star2-5  { left: 117px;    top: 143px;    transform: rotate(2.58deg);   }
+    .star2-6  { left: 613px;    top: 87px;     transform: rotate(-12.04deg); }
+    .star2-7  { left: 268.86px; top: 17.86px;  transform: rotate(9.53deg);   }
+    .star2-8  { left: 435px;    top: 12px;     transform: rotate(6.55deg);   }
+    .star2-9  { left: 537.98px; top: 37.98px;  transform: rotate(5.89deg);   }
+    .star2-10 { left: 31px;     top: 195px;    transform: rotate(2.58deg);   }
+    .star2-11 { left: 614px;    top: 222px;    transform: rotate(-10.43deg); }
+    .star2-12 { left: 722px;    top: 253px;    transform: rotate(2.58deg);   }
+    .star2-13 { left: 125px;    top: 238px;    transform: rotate(-15.48deg); }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="background"></div>
+    <div class="jirachi-container">
+      <img src="images/jirachi.png" alt="Jirachi" class="jirachi-img animate__animated animate__jackInTheBox animate__delay-0s">
+      <div class="dialog-box">
+        <p class="dialog-text"></p>
+        <img class="text-indicator" src="images/arrow.png" alt="Continue indicator">
+      </div>
+    </div>
+    <div class="star2-group">
+      <div class="star2 star2-1">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="starGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#FDED99"/>
+              <stop offset="49.52%" stop-color="#FCF4DB"/>
+              <stop offset="100%" stop-color="#FDED99"/>
+            </linearGradient>
+          </defs>
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-2">    
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-3">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-4">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-5">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-6">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-7">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-8">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-9">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-10">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-11">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-12">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+      <div class="star2 star2-13">
+        <svg viewBox="0 0 49 49" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="24.5,0 30.1,16.5 48.5,18.3 34,30 38.7,47.5 24.5,38 10.3,47.5 15,30 0.5,18.3 18.9,16.5"
+            fill="url(#starGradient)" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    // typewriter
+    window.addEventListener('DOMContentLoaded', function() {
+      const text = "An error has occurred. Please check the logs for more info. Returning to title screen...";
+      const textElem = document.querySelector('.dialog-text');
+      const indicator = document.querySelector('.text-indicator');
+      const jirachiImg = document.querySelector('.jirachi-img');
+
+      let i = 0;
+      function typeChar() {
+        if (i <= text.length) {
+          textElem.textContent = text.slice(0, i);
+          i++;
+          let delay = 50;
+          if (text[i-2] === '.' || text[i-2] === '!') delay = 180;
+          setTimeout(typeChar, delay);
+        }
+        else {
+          indicator.classList.add('fade-in');
+        }
+      }
+      setTimeout(typeChar, 100);
+    });
+    // click handler
+    document.addEventListener('click', function() {
+        // is text indicator visible? if not, don't transition
+        const indicator = document.querySelector('.text-indicator');
+        const opacity = indicator && window.getComputedStyle(indicator).opacity;
+        if (opacity == '0') return;
+        
+        // fade out everything
+        const main = document.querySelector('body');
+        const fadeTargets = main.querySelectorAll('.dialog-text, .text-indicator, .jirachi-container, .star2-group');
+        const background = document.querySelector('.background');
+        fadeTargets.forEach(el => {
+            el.classList.add('fade-out')
+          },
+          setTimeout(() => {
+              background.classList.add('fade-out')
+          }, 500)
+        );
+        // nav logic
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 900);
+    });
+  </script>
+</body>
+</html> 
