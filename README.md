@@ -24,9 +24,9 @@ sudo reboot
  - Modify `start-injection.php` to fill all open slots in the party with Jirachi's isntead of just one. Instructions to do so are in the file (`/var/www/html/WishmakerDistributionMachine/start-injection.php`).
 
 ## Credits
- - Cilerba, Goppier, UndeadXReality, Zaksabeast: inspiration
+ - [Cilerba](https://github.com/cilerba/), [Goppier](https://github.com/Goppier), [UndeadxReality](https://digiex.net/members/undeadxreality.54129/), [Zaksabeast](https://github.com/zaksabeast/): inspiration
 
- - Cilerba: Professor Oak model poses
+ - [Cilerba](https://github.com/cilerba/): Professor Oak model poses
 
  - [MikuMikuKnight + New3DsSuchti](https://www.deviantart.com/mikumikuknight/art/Prof-Oak-dl-859617406): Professor Oak model from Pokemon Masters
 
