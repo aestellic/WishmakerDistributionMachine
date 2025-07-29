@@ -5,16 +5,20 @@ Web UI and automated script for [InjectJirachi](https://github.com/aestellic/Inj
  - Install [FullPageOS](https://github.com/guysoft/FullPageOS) using [Raspberry Pi Imager](https://www.raspberrypi.com/software/) or similar software
  - ssh into the Pi and run the following:
 ```sh
-cd ~
+mkdir ~/.temp
+mkdir ~/InjectJirachi
+cd ~/.temp
 sudo apt-get update
-sudo apt-get install git
-git clone https://github.com/aestellic/InjectJirachi ~/
+sudo apt-get install git php-cli
+git clone https://github.com/aestellic/InjectJirachi
 # Install .NET 9.0 and build InjectJirachi
 wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 sudo apt-get install -y dotnet-sdk-9.0
 cd InjectJirachi/InjectJirachi
+dotnet build
+cp bin/Debug/net9.0/linux-arm/* ~/InjectJirachi -r
 # Install WishmakerDistributionmachine and set it as the homepage
 sudo git clone https://github.com/aestellic/WishmakerDistributionMachine /var/www/html/
 sudo chmod +x /var/www/html/WishmakerDistributionMachine/injectJirachi.sh
@@ -25,6 +29,20 @@ sudo echo "xserver-command=X -nocursor" >> /usr/share/lightdm/lightdm.conf.d/*.c
 # Set splash screen
 sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /boot/firmware/splash.png
 sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /opt/custompios/background.png
+# Setup PHP systemd service
+sudo bash -c 'cat > /etc/systemd/system/wishmakerdistributionmachine.service <<EOF
+[Unit]
+Description=PHP Built-in Server for WishmakerDistributionMachine
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/php -S 127.0.0.1:8000 -t /var/www/html/WishmakerDistributionMachine
+WorkingDirectory=/var/www/html/WishmakerDistributionMachine
+Restart=always
+EOF'
+sudo systemctl daemon-reload
+sudo systemctl enable wishmakerdistributionmachine.service
+sudo systemctl start wishmakerdistributionmachine.service
 sudo reboot
 ```
  - Plug in a GBxCart RW, GBFlash, or Joey Jr.
