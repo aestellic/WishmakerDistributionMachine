@@ -5,11 +5,24 @@ Web UI and automated script for [InjectJirachi](https://github.com/aestellic/Inj
  - Install [FullPageOS](https://github.com/guysoft/FullPageOS) using [Raspberry Pi Imager](https://www.raspberrypi.com/software/) or similar software
  - ssh into the Pi and run the following:
 ```sh
+cd ~
+sudo apt-get update
+sudo apt-get install git
 git clone https://github.com/aestellic/InjectJirachi ~/
+# Install .NET 9.0 and build InjectJirachi
+wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+sudo apt-get install -y dotnet-sdk-9.0
+cd InjectJirachi/InjectJirachi
+# Install WishmakerDistributionmachine and set it as the homepage
 sudo git clone https://github.com/aestellic/WishmakerDistributionMachine /var/www/html/
+sudo chmod +x /var/www/html/WishmakerDistributionMachine/injectJirachi.sh
 sudo echo "http://localhost/WishmakerDistributionMachine/index.html" > /boot/firmware/fullpageos.txt
+# Disable scrollbar and cursor
 sudo echo 'export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --force-renderer-accessibility --enable-remote-extensions --enable-features=OverlayScrollbar"' > /etc/chromium.d/00-rpi-vars
 sudo echo "xserver-command=X -nocursor" >> /usr/share/lightdm/lightdm.conf.d/*.conf
+# Set splash screen
 sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /boot/firmware/splash.png
 sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /opt/custompios/background.png
 sudo reboot
@@ -33,6 +46,10 @@ sudo reboot
 
  - [shyastreamsstuff](https://www.deviantart.com/shyastreamsstuff/art/Jigglypuff-316410418): Jigglypuff singing art
 
- - [@drayx7 on Discord](https://discord.com/channels/442462691542695948/442464874287726594/681746898939543556) Wishmaker generation decompilation (join the pret Discord first if the link isn't working)
+ - [@drayx7 on Discord](https://discord.com/channels/442462691542695948/442464874287726594/681746898939543556): Wishmaker generation decompilation (join the pret Discord first if the link isn't working)
 
- - [@Gudf on Discord](https://discord.com/channels/442462691542695948/442464874287726594/1398708582001803274) Help with properly reimplementing the LCRNG algorithm (join the pret Discord first if the link isn't working)
+ - [@Gudf on Discord](https://discord.com/channels/442462691542695948/442464874287726594/1398708582001803274): Help with properly reimplementing the LCRNG algorithm (join the pret Discord first if the link isn't working)
+
+ - [FlashGBX](https://github.com/lesserkuma/FlashGBX): Save data backup/restore
+
+ - [PKHeX](https://github.com/kwsch/PKHeX/): Save data manipulation
