@@ -87,6 +87,7 @@ sudo reboot
  - Unlimited Jirachi's can be received per save.
  - Modify `start-injection.php` to fill all open slots in the party with Jirachi's isntead of just one. Instructions to do so are in the file (`/var/www/html/WishmakerDistributionMachine/start-injection.php`).
  - You may need to modify the commands in [Usage](#usage) if you aren't using a Rasbperry Pi
+ - You will have to modify the HTML if your display is not 800x480.
 
 ## Credits
  - [Cilerba](https://github.com/cilerba/), [Goppier](https://github.com/Goppier), [UndeadxReality](https://digiex.net/members/undeadxreality.54129/), [Zaksabeast](https://github.com/zaksabeast/): inspiration
