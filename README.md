@@ -32,3 +32,7 @@ sudo reboot
  - [MikuMikuKnight + New3DsSuchti](https://www.deviantart.com/mikumikuknight/art/Prof-Oak-dl-859617406): Professor Oak model from Pokemon Masters
 
  - [shyastreamsstuff](https://www.deviantart.com/shyastreamsstuff/art/Jigglypuff-316410418): Jigglypuff singing art
+
+ - [@drayx7 on Discord](https://discord.com/channels/442462691542695948/442464874287726594/681746898939543556) Wishmaker generation decompilation (join the pret Discord first if the link isn't working)
+
+ - [@Gudf on Discord](https://discord.com/channels/442462691542695948/442464874287726594/1398708582001803274) Help with properly reimplementing the LCRNG algorithm (join the pret Discord first if the link isn't working)
