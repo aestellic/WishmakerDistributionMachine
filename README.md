@@ -46,6 +46,7 @@ s/(^| )console=tty1//;
 # Setup PHP systemd service, wrapper script, and wishmaker user
 sudo useradd -m -s /bin/bash wishmaker
 sudo chown -R wishmaker:wishmaker /usr/lib/python3/dist-packages/FlashGBX/
+sudo chown -R wishmaker:wishmaker /home/wishmaker
 sudo tee /usr/local/bin/start-wishmaker.sh > /dev/null <<'EOF'
 #!/bin/bash
 USER=wishmaker
