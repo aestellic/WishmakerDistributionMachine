@@ -1,5 +1,5 @@
 # Wishmaker Distribution Machine
-Web UI and automated script for [InjectJirachi](https://github.com/aestellic/InjectJirachi). Intended for usage with a Raspberry Pi running FullPageOS alongside a touch screen [such as this one](www.amazon.com/dp/B0B455LDKH) and a GBxCart RW.
+Web UI and automated script for [InjectJirachi](https://github.com/aestellic/InjectJirachi). Intended for usage with a Raspberry Pi running FullPageOS alongside a touch screen [such as this one](www.amazon.com/dp/B0B455LDKH) and a GBxCart RW or similar device.
 
 ## Usage
  - Install [FullPageOS](https://github.com/guysoft/FullPageOS) using [Raspberry Pi Imager](https://www.raspberrypi.com/software/) or similar software
@@ -14,6 +14,7 @@ sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /boot/firmware/spl
 sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /opt/custompios/background.png
 sudo reboot
 ```
+ - Plug in a GBxCart RW, GBFlash, or Joey Jr.
  - Profit.
 
 ## Notes
