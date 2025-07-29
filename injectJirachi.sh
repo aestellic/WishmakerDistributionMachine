@@ -113,7 +113,7 @@ fi
 run_flashgbx flashgbx --cli --cfgdir subdir --mode agb --action restore-save "$MODIFIED_SAV" --overwrite
 
 if echo "$OUTPUT" | grep -q "Invalid data was detected which usually means that the cartridge couldn’t be read correctly"; then
-    echo "DEBUG: flashgbx restore reported invalid cartridge data. Exiting with code 1." | tee -a "$LOGFILE"
+    echo "DEBUG: flashgbx reported invalid cartridge data. Exiting with code 1." | tee -a "$LOGFILE"
     exit 1
 elif echo "$OUTPUT" | grep -q "Error: No response while trying to communicate with the device."; then
     echo "DEBUG: flashgbx restore communication failure. Killing process and exiting with code 2." | tee -a "$LOGFILE"
