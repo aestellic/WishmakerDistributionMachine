@@ -1,17 +1,24 @@
 <?php
-// Start output buffering
 header('Content-Type: text/plain');
 header('Cache-Control: no-cache');
-header('X-Accel-Buffering: no'); // For nginx
+header('X-Accel-Buffering: no');
 ob_implicit_flush(true);
 set_time_limit(0);
 
 // --------------------------------------------------------------------
 //    To enable --fill-party, change the next line to the following:
-//    $script = __DIR__ . '/inject_jirachi.sh --fill-party';
+//    $script = __DIR__ . '/injectJirachi.sh --fill-party';
 // --------------------------------------------------------------------
 
-$script = __DIR__ . '/var/www/html/WishmakerDistributionMachine/injectJirachi.sh';
+$script = __DIR__ . '/injectJirachi.sh';
+
+echo "DEBUG: Starting script: $script\n";
+flush();
+
+// set $HOME so flashgbx works
+$env = $_ENV;
+$env['HOME'] = '/home/wishmaker';
+
 
 $process = proc_open("bash $script", [
     1 => ['pipe', 'w'], // stdout
@@ -23,13 +30,38 @@ if (!is_resource($process)) {
     exit(1);
 }
 
-while (!feof($pipes[1])) {
-    $line = fgets($pipes[1]);
-    if ($line === false) break;
+stream_set_blocking($pipes[1], false);
+stream_set_blocking($pipes[2], false);
 
-    echo $line;
-    flush();
+while (true) {
+    $stdout = fgets($pipes[1]);
+    $stderr = fgets($pipes[2]);
+
+    if ($stdout !== false) {
+        echo "STDOUT: $stdout";
+        flush();
+    }
+
+    if ($stderr !== false) {
+        echo "STDERR: $stderr";
+        flush();
+    }
+
+    if ($stdout === false && $stderr === false) {
+        // check if process ended
+        $status = proc_get_status($process);
+        if (!$status['running']) break;
+        usleep(100000); // 0.1 sec delay
+    }
 }
 
+// close pipes
+fclose($pipes[1]);
+fclose($pipes[2]);
+
 $exitCode = proc_close($process);
+
+echo "DEBUG: Script exited with code $exitCode\n";
+flush();
+
 exit($exitCode);

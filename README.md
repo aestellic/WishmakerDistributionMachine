@@ -2,47 +2,77 @@
 Web UI and automated script for [InjectJirachi](https://github.com/aestellic/InjectJirachi). Intended for usage with a Raspberry Pi running FullPageOS alongside a touch screen [such as this one](https://www.amazon.com/dp/B0B455LDKH) and a GBxCart RW or similar device.
 
 ## Usage
- - Install [FullPageOS](https://github.com/guysoft/FullPageOS) using [Raspberry Pi Imager](https://www.raspberrypi.com/software/) or similar software
+ - Install [FullPageOS Stable](https://github.com/guysoft/FullPageOS) using [Raspberry Pi Imager](https://www.raspberrypi.com/software/) or similar software. I highly recommend setting up Wi-Fi and ssh.
+ - Warning: The following step will delete ~/.temp
  - ssh into the Pi and run the following:
 ```sh
 mkdir ~/.temp
 mkdir ~/InjectJirachi
 cd ~/.temp
 sudo apt-get update
-sudo apt-get install git php-cli
-git clone https://github.com/aestellic/InjectJirachi
+sudo apt-get install -y git php-cli curl
+# Install FlashGBX
+wget https://github.com/JJ-Fox/FlashGBX-Linux-builds/releases/download/4.4/rpios12-flashgbx_4.4-1_all.deb
+sudo apt-get install -y ./rpios12-flashgbx_4.4-1_all.deb
 # Install .NET 9.0 and build InjectJirachi
-wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-rm packages-microsoft-prod.deb
-sudo apt-get install -y dotnet-sdk-9.0
-cd InjectJirachi/InjectJirachi
+curl -L https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+chmod +x ./dotnet-install.sh
+./dotnet-install.sh --channel 9.0
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+git clone https://github.com/aestellic/InjectJirachi
+cd InjectJirachi
+git submodule update --init --recursive
+cd InjectJirachi
 dotnet build
-cp bin/Debug/net9.0/linux-arm/* ~/InjectJirachi -r
+cp bin/Debug/net9.0/linux-arm/* /home/wishmaker/InjectJirachi -r
 # Install WishmakerDistributionmachine and set it as the homepage
-sudo git clone https://github.com/aestellic/WishmakerDistributionMachine /var/www/html/
+sudo git clone https://github.com/aestellic/WishmakerDistributionMachine /var/www/html/WishmakerDistributionMachine
 sudo chmod +x /var/www/html/WishmakerDistributionMachine/injectJirachi.sh
-sudo echo "http://localhost/WishmakerDistributionMachine/index.html" > /boot/firmware/fullpageos.txt
+echo "http://localhost/WishmakerDistributionMachine/index.html" | sudo tee /boot/firmware/fullpageos.txt > /dev/null
 # Disable scrollbar and cursor
-sudo echo 'export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --force-renderer-accessibility --enable-remote-extensions --enable-features=OverlayScrollbar"' > /etc/chromium.d/00-rpi-vars
-sudo echo "xserver-command=X -nocursor" >> /usr/share/lightdm/lightdm.conf.d/*.conf
-# Set splash screen
+echo 'export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --force-renderer-accessibility --enable-remote-extensions --enable-features=OverlayScrollbar"' | sudo tee /etc/chromium.d/00-rpi-vars > /dev/null
+for file in /usr/share/lightdm/lightdm.conf.d/*.conf; do
+  echo "xserver-command=X -nocursor" | sudo tee -a "$file" > /dev/null
+done
+# Set splash screen and disable startup text
 sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /boot/firmware/splash.png
 sudo cp /var/www/html/WishmakerDistributionMachine/splash.png /opt/custompios/background.png
-# Setup PHP systemd service
-sudo bash -c 'cat > /etc/systemd/system/wishmakerdistributionmachine.service <<EOF
+sudo sed -i -E '
+s/(^| )console=serial0,[^ ]*//;
+s/(^| )console=tty1//;
+/(^| )quiet/! s/$/ quiet/
+' /boot/firmware/cmdline.txt
+# Setup PHP systemd service, wrapper script, and wishmaker user
+sudo useradd -m -s /bin/bash wishmaker
+sudo tee /usr/local/bin/start-wishmaker.sh > /dev/null <<'EOF'
+#!/bin/bash
+USER=wishmaker
+HOME=/home/wishmaker
+
+# Optional debug output — remove if you want
+echo "Running PHP server as user: $USER, home: $HOME" >> /tmp/wishmaker.log
+
+/usr/bin/php -S 127.0.0.1:8080 -t /var/www/html/WishmakerDistributionMachine
+EOF
+sudo chmod +x /usr/local/bin/start-wishmaker.sh
+
+sudo tee /etc/systemd/system/wishmakerdistributionmachine.service > /dev/null <<EOF
 [Unit]
 Description=PHP Built-in Server for WishmakerDistributionMachine
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/php -S 127.0.0.1:8000 -t /var/www/html/WishmakerDistributionMachine
+User=wishmaker
+ExecStart=/usr/local/bin/start-wishmaker.sh
 WorkingDirectory=/var/www/html/WishmakerDistributionMachine
 Restart=always
-EOF'
-sudo systemctl daemon-reload
+
+[Install]
+WantedBy=multi-user.target
+EOF
 sudo systemctl enable wishmakerdistributionmachine.service
-sudo systemctl start wishmakerdistributionmachine.service
+rm -rf ~/.temp
 sudo reboot
 ```
  - Plug in a GBxCart RW, GBFlash, or Joey Jr.
@@ -54,6 +84,7 @@ sudo reboot
  - All randomized seeds should be legal
  - Unlimited Jirachi's can be received per save.
  - Modify `start-injection.php` to fill all open slots in the party with Jirachi's isntead of just one. Instructions to do so are in the file (`/var/www/html/WishmakerDistributionMachine/start-injection.php`).
+ - You may need to modify the commands in [Usage](#usage) if you aren't using a Rasbperry Pi
 
 ## Credits
  - [Cilerba](https://github.com/cilerba/), [Goppier](https://github.com/Goppier), [UndeadxReality](https://digiex.net/members/undeadxreality.54129/), [Zaksabeast](https://github.com/zaksabeast/): inspiration

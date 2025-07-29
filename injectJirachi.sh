@@ -38,7 +38,7 @@ run_flashgbx() {
 }
 
 # ------------------- backup save -------------------
-run_flashgbx flashgbx --cli --mode agb --action backup-save "$BACKUP_FILE"
+run_flashgbx flashgbx --cli --cfgdir subdir --mode agb --action backup-save "$BACKUP_FILE"
 
 if echo "$OUTPUT" | grep -q "Invalid data was detected which usually means that the cartridge couldn’t be read correctly"; then
     echo "DEBUG: flashgbx reported invalid cartridge data. Exiting with code 1." | tee -a "$LOGFILE"
@@ -58,7 +58,7 @@ fi
 echo "Running InjectJirachi..." | tee -a "$LOGFILE"
 
 TMP_INJECT_OUTPUT=$(mktemp)
-~/InjectJirachi/InjectJirachi "$BACKUP_FILE" "$MODIFIED_SAV" $FILL_PARTY_FLAG 2>&1 | tee "$TMP_INJECT_OUTPUT" | tee -a "$LOGFILE"
+/home/wishmaker/InjectJirachi/InjectJirachi "$BACKUP_FILE" "$MODIFIED_SAV" $FILL_PARTY_FLAG 2>&1 | tee "$TMP_INJECT_OUTPUT" | tee -a "$LOGFILE"
 INJECT_EXIT_CODE=${PIPESTATUS[0]}
 INJECT_OUTPUT=$(<"$TMP_INJECT_OUTPUT")
 rm -f "$TMP_INJECT_OUTPUT"
@@ -107,7 +107,7 @@ if [[ ! -f "$MODIFIED_SAV" ]]; then
 fi
 
 # ------------------- restore save -------------------
-run_flashgbx flashgbx --cli --mode agb --action restore-save "$MODIFIED_SAV" --overwrite
+run_flashgbx flashgbx --cli --cfgdir subdir --mode agb --action restore-save "$MODIFIED_SAV" --overwrite
 
 if echo "$OUTPUT" | grep -q "Invalid data was detected which usually means that the cartridge couldn’t be read correctly"; then
     echo "DEBUG: flashgbx restore reported invalid cartridge data. Exiting with code 1." | tee -a "$LOGFILE"
