@@ -272,7 +272,7 @@
 <script>
   // typewriter
   window.addEventListener('DOMContentLoaded', function() {
-    const text = "Backing up save and sending Jirachi to your party...";
+    const text = "Backing up save and sending Jirachi to your party. Please do not touch the cartridge or distribution machine.";
     const textElem = document.querySelector('.dialog-text');
     const indicator = document.querySelector('.text-indicator');
     const jirachiImg = document.querySelector('.jirachi-img');
@@ -290,16 +290,15 @@
     setTimeout(typeChar, 100);
 
     // run script and monitor output
-    fetch('start-injection.php')
+    fetch('http://localhost:8080/start-injection.php')
       .then(response => {
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
-        let step = 'backup';
 
         function fadeOutAndNavigate(destination) {
-          // fade out text and text indicator
+          // fade out text
           const main = document.querySelector('body');
-          const fadeTargets = main.querySelectorAll('.dialog-text, .text-indicator');
+          const fadeTargets = main.querySelectorAll('.dialog-text');
           fadeTargets.forEach(el => {
             if (el.classList.contains('animate__animated')) {
               el.classList.remove('animate__animated', 'animate__jackInTheBox', 'animate__delay-0s', 'fade-in');
@@ -319,8 +318,7 @@
             const textChunk = decoder.decode(value, { stream: true });
             console.log('[SCRIPT OUTPUT]', textChunk);
 
-            if (step === 'backup' && textChunk.includes("Backup succeeded.")) {
-              step = 'inject';
+            if (textChunk.includes("Save restore complete.")) {
               fadeOutAndNavigate('end-4.html');
             }
 

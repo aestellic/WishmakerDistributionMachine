@@ -7,7 +7,6 @@ Web UI and automated script for [InjectJirachi](https://github.com/aestellic/Inj
  - ssh into the Pi and run the following:
 ```sh
 mkdir ~/.temp
-mkdir ~/InjectJirachi
 cd ~/.temp
 sudo apt-get update
 sudo apt-get install -y git php-cli curl
@@ -25,7 +24,8 @@ cd InjectJirachi
 git submodule update --init --recursive
 cd InjectJirachi
 dotnet build
-cp bin/Debug/net9.0/linux-arm/* /home/wishmaker/InjectJirachi -r
+sudo mkdir -p /home/wishmaker/InjectJirachi
+sudo cp bin/Debug/net9.0/linux-arm/* /home/wishmaker/InjectJirachi -r
 # Install WishmakerDistributionmachine and set it as the homepage
 sudo git clone https://github.com/aestellic/WishmakerDistributionMachine /var/www/html/WishmakerDistributionMachine
 sudo chmod +x /var/www/html/WishmakerDistributionMachine/injectJirachi.sh
@@ -45,6 +45,7 @@ s/(^| )console=tty1//;
 ' /boot/firmware/cmdline.txt
 # Setup PHP systemd service, wrapper script, and wishmaker user
 sudo useradd -m -s /bin/bash wishmaker
+sudo chown -R wishmaker:wishmaker /usr/lib/python3/dist-packages/FlashGBX/
 sudo tee /usr/local/bin/start-wishmaker.sh > /dev/null <<'EOF'
 #!/bin/bash
 USER=wishmaker
@@ -72,6 +73,7 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 sudo systemctl enable wishmakerdistributionmachine.service
+sudo systemctl disable x11vnc.service # Omit this line if you want VNC access
 rm -rf ~/.temp
 sudo reboot
 ```

@@ -2,7 +2,9 @@
 header('Content-Type: text/plain');
 header('Cache-Control: no-cache');
 header('X-Accel-Buffering: no');
+header('Access-Control-Allow-Origin: *');
 ob_implicit_flush(true);
+while (ob_get_level() > 0) ob_end_flush();
 set_time_limit(0);
 
 // --------------------------------------------------------------------

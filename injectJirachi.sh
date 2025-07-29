@@ -49,6 +49,9 @@ elif echo "$OUTPUT" | grep -q "Error: No response while trying to communicate wi
     exit 2
 elif echo "$OUTPUT" | grep -q "The save data backup is complete!" && [[ $RETVAL -eq 0 ]]; then
     echo "Backup succeeded." | tee -a "$LOGFILE"
+elif echo "$OUTPUT" | grep -q "No devices found."; then
+    echo "DEBUG: No cartridge flasher found. Exiting with code 8." | tee -a "$LOGFILE"
+    exit 8
 else
     echo "DEBUG: Unknown backup error. Output did not match expected patterns. Exiting with code 3." | tee -a "$LOGFILE"
     exit 3
@@ -119,6 +122,9 @@ elif echo "$OUTPUT" | grep -q "Error: No response while trying to communicate wi
 elif echo "$OUTPUT" | grep -q "Couldn’t find file “modified.sav”."; then
     echo "DEBUG: flashgbx could not find modified.sav during restore. Exiting with code 5." | tee -a "$LOGFILE"
     exit 5
+elif echo "$OUTPUT" | grep -q "No devices found."; then
+    echo "DEBUG: No cartridge flasher found. Exiting with code 8." | tee -a "$LOGFILE"
+    exit 8
 elif echo "$OUTPUT" | grep -q "The save data was restored!" && [[ $RETVAL -eq 0 ]]; then
     echo "Save restore complete." | tee -a "$LOGFILE"
     exit 0
