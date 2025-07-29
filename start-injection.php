@@ -35,7 +35,18 @@ if (!is_resource($process)) {
 stream_set_blocking($pipes[1], false);
 stream_set_blocking($pipes[2], false);
 
+$startTime = microtime(true);
+$timeout = 60; // seconds
+
 while (true) {
+    $elapsed = microtime(true) - $startTime;
+    if ($elapsed > $timeout) {
+        echo "ERROR: Script timed out after $timeout seconds.\n";
+        // Attempt to terminate the process
+        proc_terminate($process);
+        break;
+    }
+    
     $stdout = fgets($pipes[1]);
     $stderr = fgets($pipes[2]);
 
