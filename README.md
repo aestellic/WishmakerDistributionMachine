@@ -50,7 +50,7 @@ sudo tee /usr/local/bin/start-wishmaker.sh > /dev/null <<'EOF'
 USER=wishmaker
 HOME=/home/wishmaker
 
-# Debug output
+# debug output
 echo "Running PHP server as user: $USER, home: $HOME" >> /tmp/wishmaker.log
 
 /usr/bin/php -S 127.0.0.1:8080 -t /var/www/html/WishmakerDistributionMachine
