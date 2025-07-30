@@ -1,4 +1,6 @@
 # Wishmaker Distribution Machine
+![Preview of title screen](preview.png)
+
 Web UI and automated script for [InjectJirachi](https://github.com/aestellic/InjectJirachi). Intended for usage with a Raspberry Pi running FullPageOS alongside a touch screen [such as this one](https://www.amazon.com/dp/B0B455LDKH) and a [GBxCart RW](https://www.gbxcart.com/) or similar device.
 
 ## Usage
