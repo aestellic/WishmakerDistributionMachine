@@ -84,6 +84,7 @@ sudo reboot
  - Profit.
 
 ## Notes
+ - MAKE A SAVE BACKUP BEFORE USING THIS TOOL! The tool will back up your save, but make one just in case :>
  - Should work with any mainline Gen III game and every language, but I don't have any other games to test with.
  - You must have an open slot in your party; the program will exit if you do not.
  - The seed used to generate the Jirachi is randomized, so standard Wishmaker RNG manipulation will not work.
