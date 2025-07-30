@@ -91,6 +91,7 @@ sudo reboot
  - Modify `start-injection.php` to fill all open slots in the party with Jirachi's isntead of just one. Instructions to do so are in the file (`/var/www/html/WishmakerDistributionMachine/start-injection.php`).
  - You may need to modify the commands in [Usage](#usage) if you aren't using a Rasbperry Pi
  - You will have to modify the HTML if your display is not 800x480.
+ - There is currently no error handling or checks in place for if you have acquired the pokedex or starter pokemon.
 
 ## Credits
  - [Cilerba](https://github.com/cilerba/), [Goppier](https://github.com/Goppier), [UndeadxReality](https://digiex.net/members/undeadxreality.54129/), [Zaksabeast](https://github.com/zaksabeast/): inspiration
