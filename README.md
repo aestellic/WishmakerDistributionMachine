@@ -84,6 +84,7 @@ sudo reboot
  - Profit.
 
 ## Notes
+ - Should work with any mainline Gen III game and every language, but I don't have any other games to test with.
  - You must have an open slot in your party; the program will exit if you do not.
  - The seed used to generate the Jirachi is randomized, so standard Wishmaker RNG manipulation will not work.
  - All randomized seeds should be legal
