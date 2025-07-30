@@ -92,11 +92,11 @@ case $INJECT_EXIT_CODE in
         fi
         ;;
     2)
-        echo "DEBUG: InjectJirachi failed — invalid save or generation error (InjectJirachi exit 2) (exit 6)." | tee -a "$LOGFILE"
+        echo "DEBUG: InjectJirachi failed — invalid save or generation error (InjectJirachi exit 2) (exit code 6)." | tee -a "$LOGFILE"
         exit 6
         ;;
     *)
-        echo "DEBUG: InjectJirachi failed with unknown exit code $INJECT_EXIT_CODE. (exit 4)" | tee -a "$LOGFILE"
+        echo "DEBUG: InjectJirachi failed with unknown exit code $INJECT_EXIT_CODE. (exit code 4)" | tee -a "$LOGFILE"
         exit 4
         ;;
 esac
