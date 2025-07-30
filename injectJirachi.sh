@@ -81,13 +81,13 @@ case $INJECT_EXIT_CODE in
 
         if [[ "$FILL_PARTY_FLAG" == "--fill-party" ]]; then
             if [[ "$INITIAL_PARTY_SIZE" -ge "$MAX_PARTY_SIZE" ]]; then
-                echo "DEBUG: Party was already full before injection; treating as failure. (exit 7)" | tee -a "$LOGFILE"
+                echo "DEBUG: Party was already full before injection; treating as failure. (exit code 7)" | tee -a "$LOGFILE"
                 exit 7
             else
                 echo "DEBUG: --fill-party was set and party got filled, continuing main program." | tee -a "$LOGFILE"
             fi
         else
-            echo "DEBUG: Party full and --fill-party not set (exit 7)." | tee -a "$LOGFILE"
+            echo "DEBUG: Party full and --fill-party not set (exit code 7)." | tee -a "$LOGFILE"
             exit 7
         fi
         ;;
