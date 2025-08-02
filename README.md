@@ -90,10 +90,11 @@ sudo reboot
  - The seed used to generate the Jirachi is randomized, so standard Wishmaker RNG manipulation will not work.
  - All randomized seeds should be legal
  - Unlimited Jirachi's can be received per save.
+ - There are currently no checks in place for if you have acquired the pokedex. Don't use on a brand new save.
+ - Your game may glitch/crash if using [imablisy's Emerald Patch](www.youtube.com/watch?v=wNVRk56OhLo) and viewing your party right after distribution. Disable the patch by speaking to Professor Birch's aide before using the distribution machine.
  - Modify `start-injection.php` to fill all open slots in the party with Jirachi's isntead of just one. Instructions to do so are in the file (`/var/www/html/WishmakerDistributionMachine/start-injection.php`).
  - You may need to modify the commands in [Usage](#usage) if you aren't using a Rasbperry Pi
  - You will have to modify the HTML if your display is not 800x480.
- - There is currently no error handling or checks in place for if you have acquired the pokedex or starter pokemon.
 
 ## Credits
  - [Cilerba](https://github.com/cilerba/), [Goppier](https://github.com/Goppier), [UndeadxReality](https://digiex.net/members/undeadxreality.54129/), [Zaksabeast](https://github.com/zaksabeast/): inspiration
